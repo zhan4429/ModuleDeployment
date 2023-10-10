@@ -1,3 +1,15 @@
+## Installation
+```
+mkdir 2.4.0
+cd 2.4.0/
+/apps/rcac/anaconda/2022.10/bin/conda create -p libexec python=3.10
+libexec/bin/pip install hyper-shell
+mkdir bin
+cd bin/
+ln -sf ../libexec/bin/hyper-shell .
+```
+
+
 ## modulefile
 ```
 local appname = 'hyper-shell'
