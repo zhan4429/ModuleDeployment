@@ -1,0 +1,37 @@
+- name: Run nf-core commands
+  hosts: localhost
+  gather_facts: false
+  vars:
+    version: "2.13.1"
+
+  tasks:
+    - name: Create directory
+      file:
+        path: "/cluster/tufts/biocontainers/tools/nf-core/{{ version }}"
+        state: directory
+
+    - name: Create virtual environment
+      shell: "cd /cluster/tufts/biocontainers/tools/nf-core/{{ version }} && /cluster/tufts/hpc/tools/anaconda/202111/bin/conda create -p libexec python=3.10"
+      args:
+        executable: /bin/bash
+
+    - name: Install nf-core
+      shell: "cd /cluster/tufts/biocontainers/tools/nf-core/{{ version }} && libexec/bin/pip install nf-core"
+      args:
+        executable: /bin/bash
+
+    - name: Create bin directory
+      file:
+        path: "/cluster/tufts/biocontainers/tools/nf-core/{{ version }}/bin"
+        state: directory
+
+    - name: Create symlink
+      shell: "cd /cluster/tufts/biocontainers/tools/nf-core/{{ version }}/bin && ln -sf ../libexec/bin/nf-core"
+      args:
+        executable: /bin/bash
+
+    - name: Change directory permissions
+      file:
+        path: "/cluster/tufts/biocontainers/tools/nf-core/{{ version }}"
+        mode: "775"
+        recurse: yes
