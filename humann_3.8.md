@@ -82,12 +82,31 @@ humann_config --update database_folders utility_mapping /cluster/tufts/biocontai
 ######################################################################
 ```
 
-humann --input examples/demo.fasta.gz --output demo_out --metaphlan-options "--bowtie2db /cluster/tufts/biocontainers/datasets/humann/metaphlan/mpa_vJun23_CHOCOPhlAnSGB_202307"
-Output files will be written to: /cluster/tufts/rt/yzhang85/test_tufts/humann/demo_out
 
 
-
-## Download 
+## Run the command
 ```
 humann --input examples/demo.fasta --output demo_out --metaphlan-options  "--index mpa_vOct22_CHOCOPhlAnSGB_202212 --bowtie2db /cluster/tufts/biocontainers/datasets/humann/metaphlan"
+```
+
+## Binding the metaplan database to the container
+If I bind the metaplan database into the container, I will not need to add the `--metaphlan-options` in the command line
+```
+#
+# prepend-path and set SINGULARITY_BIND
+#
+prepend-path PATH            /cluster/tufts/biocontainers/tools/humann/3.8/bin
+prepend-path --delim=, SINGULARITY_BIND /cluster/tufts
+prepend-path --delim=, SINGULARITY_BIND  /cluster/tufts/biocontainers/datasets/humann/metaphlan:/usr/local/lib/python3.8/dist-packages/metaphlan/metap
+hlan_databases
+#
+# set environment variable
+#
+
+```
+
+Then I can simply run the command like this:
+
+```
+humann --input examples/demo.fasta --output demo_out 
 ```
