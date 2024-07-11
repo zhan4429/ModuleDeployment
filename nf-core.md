@@ -51,7 +51,14 @@ whatis('Description: A community effort to collect a curated set of analysis pip
 prepend_path('PATH', pathJoin(modroot, 'bin'))
 ```
 
-## 2.13.1 at Tufts
----
+## 2.14.1 at Tufts
 
+```
+cd /cluster/tufts/biocontainers/tools/nf-core
+mkdir 2.14.1
+/cluster/tufts/hpc/tools/anaconda/202111/bin/conda create -p libexec python=3.10
+libexec/bin/pip install nf-core
+mkdir bin
+cd bin
+ln -sf ../libexec/bin/nf-core
 ```
